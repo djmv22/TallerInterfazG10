@@ -5,6 +5,8 @@
  */
 package ejercicio;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DanielDeJesus
@@ -45,18 +47,36 @@ public class Interfaz10 extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel2.setText("Nº de rollos a revelar:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
-        jPanel1.add(txtNRollosRevelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 80, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
+
+        txtNRollosRevelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNRollosRevelarKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtNRollosRevelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 80, -1));
 
         jLabel3.setText("Valor por el revelado:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
-        jPanel1.add(txtValorRevelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 80, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
+
+        txtValorRevelado.setEditable(false);
+        jPanel1.add(txtValorRevelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 80, -1));
 
         cmdCalcular.setText("Calcular");
-        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, -1, -1));
 
         cmdBorrar.setText("Borrar");
-        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,6 +91,48 @@ public class Interfaz10 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        txtNRollosRevelar.setText("");
+        txtValorRevelado.setText("");
+        
+        txtNRollosRevelar.requestFocusInWindow();
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtNRollosRevelarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNRollosRevelarKeyTyped
+        char c=evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNRollosRevelarKeyTyped
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+        String res;
+        double nRollosRevelar,multi,op,suma;
+        
+        if(txtNRollosRevelar.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Digite el Nº de rollos a revelar", "Error", JOptionPane.ERROR_MESSAGE);
+            txtNRollosRevelar.requestFocusInWindow();
+        }
+        else{
+            
+            nRollosRevelar = Double.parseDouble(txtNRollosRevelar.getText());
+            
+            multi = nRollosRevelar * 1500;
+            op = multi * 0.16;
+            suma = multi + op;
+            
+            res = String.valueOf(suma);
+            txtValorRevelado.setText(res);
+            
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_cmdCalcularActionPerformed
 
     /**
      * @param args the command line arguments
